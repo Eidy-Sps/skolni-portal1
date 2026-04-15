@@ -23,7 +23,6 @@ body {
         border-color: #e2e8f0;
     }
 
-/* Barevné linky nahoře u aktualit */
 .border-top-oznameni {
     border-top: 4px solid #0d6efd !important;
 }
@@ -36,7 +35,6 @@ body {
     border-top: 4px solid #fd7e14 !important;
 }
 
-/* Barevná kolečka pro ikony oborů */
 .icon-box {
     width: 48px;
     height: 48px;
