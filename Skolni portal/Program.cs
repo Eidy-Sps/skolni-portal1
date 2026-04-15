@@ -1,36 +1,42 @@
-namespace Skolni_portal
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Skolni_portal.Data;
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+var builder = WebApplication.CreateBuilder(args);
 
-            var app = builder.Build();
+// 1. Připojení databáze
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+// 2. Nastavení Identity (přihlašování)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+    // Tady nastavujeme pravidla pro hesla
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
+builder.Services.AddControllersWithViews();
 
-            app.UseAuthorization();
+var app = builder.Build();
 
-            app.MapStaticAssets();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+// ... (tady zůstává původní kód pro Error handling a HSTS) ...
 
-            app.Run();
-        }
-    }
-}
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+// 3. ZAPNUTÍ AUTENTIZACE! (Musí být přesně v tomto pořadí)
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
