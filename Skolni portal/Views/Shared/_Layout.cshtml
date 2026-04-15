@@ -11,20 +11,41 @@
 <body class="bg-light-custom">
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
                 <span class="bg-primary text-white rounded px-2 py-1 fs-6">SP</span>
                 SPŠ Trutnovská
             </a>
             <div class="collapse navbar-collapse justify-content-center">
                 <ul class="navbar-nav gap-3 fw-medium">
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">O škole</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Obory</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Aktuality</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Kontakt</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="About">O škole</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="Programs">Obory</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="News">Aktuality</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
                 </ul>
             </div>
             <div>
-                <a href="#" class="btn btn-outline-dark fw-bold rounded-pill px-4">Přihlásit se</a>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark fw-bold rounded-pill px-4 dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-2"></i>@User.Identity?.Name
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">Můj profil</a></li>
+                            <li><a class="dropdown-item" href="#">Nastavení</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="post" asp-controller="Account" asp-action="Logout" style="display:inline;">
+                                    <button type="submit" class="dropdown-item">Odhlásit se</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-dark fw-bold rounded-pill px-4">Přihlásit se</a>
+                }
             </div>
         </div>
     </nav>

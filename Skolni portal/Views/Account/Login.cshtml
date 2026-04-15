@@ -1,0 +1,70 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Přihlášení";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-2">Přihlášení</h2>
+                        <p class="text-muted">SPŠ Trutnovská školní portál</p>
+                    </div>
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form method="post" asp-action="Login">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-medium">Školní email</label>
+                            <input asp-for="Email" class="form-control form-control-lg" placeholder="jmeno@sps-trutnovska.cz" autofocus autocomplete="username" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-medium">Heslo</label>
+                            <input asp-for="Password" class="form-control form-control-lg" placeholder="Zadejte heslo" autocomplete="current-password" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input asp-for="RememberMe" class="form-check-input" id="rememberMe" />
+                            <label class="form-check-label" for="rememberMe">
+                                Zůstat přihlášen
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold mb-3 rounded-pill">
+                            Přihlásit se
+                        </button>
+                    </form>
+
+                    <div class="text-center">
+                        <p class="text-muted small mb-0">
+                            Problém s přihlášením? <a href="#" class="text-decoration-none">Kontaktujte správce</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <p class="text-muted">
+                    <small>Vítejte na školním portálu SPŠ Trutnovská.<br />Přihlašte se svým školním emailem a heslem.</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

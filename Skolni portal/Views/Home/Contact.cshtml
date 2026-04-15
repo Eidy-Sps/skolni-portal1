@@ -1,0 +1,169 @@
+@{
+    ViewData["Title"] = "Kontakt";
+}
+
+<div class="mb-5 pb-3">
+    <h1 class="display-4 fw-bold text-dark mb-4">Kontaktujte nás</h1>
+    <p class="lead text-muted fs-5 mb-5">
+        Máte dotazy? Neváhejte se na nás obrátit. Rádi vám pomůžeme.
+    </p>
+
+    <div class="row g-4 mb-5">
+        <!-- Kontaktní formulář -->
+        <div class="col-lg-6">
+            <div class="card rounded-4 shadow-sm border-0 h-100">
+                <div class="card-body p-5">
+                    <h3 class="fw-bold text-dark mb-4">Napište nám zprávu</h3>
+                    <form method="post" asp-action="Contact">
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Jméno</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Vaše jméno" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Email</label>
+                            <input type="email" class="form-control form-control-lg" placeholder="vase@email.cz" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Předmět</label>
+                            <select class="form-control form-control-lg" required>
+                                <option value="">-- Vyberte si --</option>
+                                <option value="admission">Přijímací řízení</option>
+                                <option value="programs">Dotaz na obory</option>
+                                <option value="facilities">Vybavení školy</option>
+                                <option value="other">Ostatní dotaz</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-medium">Zpráva</label>
+                            <textarea class="form-control form-control-lg" rows="5" placeholder="Napište vaši zprávu..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold rounded-pill">Odeslat zprávu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kontaktní informace -->
+        <div class="col-lg-6">
+            <div class="d-flex flex-column gap-4">
+                <!-- Adresa -->
+                <div class="card rounded-4 shadow-sm border-0 p-4">
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3" style="min-width: 50px;">
+                            <i class="bi bi-geo-alt fs-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-dark mb-1">Adresa</h5>
+                            <p class="text-muted mb-0">
+                                SPŠ Trutnovská<br>
+                                Av. Generála Svobody 1500<br>
+                                541 01 Trutnov<br>
+                                Česká republika
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Telefon -->
+                <div class="card rounded-4 shadow-sm border-0 p-4">
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3" style="min-width: 50px;">
+                            <i class="bi bi-telephone fs-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-dark mb-1">Telefon</h5>
+                            <p class="text-muted mb-0">
+                                <a href="tel:+420499413999" class="text-muted text-decoration-none">+420 499 413 999</a><br>
+                                <a href="tel:+420499412345" class="text-muted text-decoration-none">+420 499 412 345</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="card rounded-4 shadow-sm border-0 p-4">
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3" style="min-width: 50px;">
+                            <i class="bi bi-envelope fs-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-dark mb-1">Email</h5>
+                            <p class="text-muted mb-0">
+                                <a href="mailto:info@sps-trutnovska.cz" class="text-muted text-decoration-none">info@sps-trutnovska.cz</a><br>
+                                <a href="mailto:reditele@sps-trutnovska.cz" class="text-muted text-decoration-none">reditele@sps-trutnovska.cz</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Otevírací doba -->
+                <div class="card rounded-4 shadow-sm border-0 p-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3" style="min-width: 50px;">
+                            <i class="bi bi-clock fs-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-dark mb-2">Otevírací doba</h5>
+                            <p class="text-muted small mb-1"><strong>Pondělí - Pátek:</strong> 7:30 - 15:30</p>
+                            <p class="text-muted small mb-1"><strong>Sobota - Neděle:</strong> Zavřeno</p>
+                            <p class="text-muted small mb-0"><strong>Recepce:</strong> 7:00 - 16:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="rounded-4 overflow-hidden shadow-sm mb-5" style="height: 400px;">
+        <iframe 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.234567890123!2d15.9000!3d50.6300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b7c1234567890%3A0x1234567890abcdef!2sSPŠ%20Trutnovská!5e0!3m2!1scs!2scz!4v1234567890123"
+            allowfullscreen="" 
+            aria-hidden="false" 
+            tabindex="0">
+        </iframe>
+    </div>
+
+    <!-- Oddělení -->
+    <div class="mb-5 pb-3">
+        <h3 class="fw-bold text-dark mb-4">Naše oddělení</h3>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card rounded-4 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold text-dark mb-3">Oddělení Informačních technologií</h5>
+                        <p class="text-muted small mb-2"><strong>Vedoucí:</strong> Ing. Jan Novotný</p>
+                        <p class="text-muted small mb-2"><strong>Email:</strong> <a href="mailto:novotny@sps-trutnovska.cz" class="text-muted text-decoration-none">novotny@sps-trutnovska.cz</a></p>
+                        <p class="text-muted small mb-0"><strong>Telefon:</strong> <a href="tel:+420499413888" class="text-muted text-decoration-none">+420 499 413 888</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card rounded-4 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold text-dark mb-3">Oddělení Technických oborů</h5>
+                        <p class="text-muted small mb-2"><strong>Vedoucí:</strong> Mgr. Petr Svoboda</p>
+                        <p class="text-muted small mb-2"><strong>Email:</strong> <a href="mailto:svoboda@sps-trutnovska.cz" class="text-muted text-decoration-none">svoboda@sps-trutnovska.cz</a></p>
+                        <p class="text-muted small mb-0"><strong>Telefon:</strong> <a href="tel:+420499413777" class="text-muted text-decoration-none">+420 499 413 777</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Den otevřených dveří -->
+    <div class="bg-primary bg-opacity-10 rounded-4 p-5 text-center">
+        <h3 class="fw-bold text-dark mb-3">Den otevřených dveří</h3>
+        <p class="text-muted fs-5 mb-4">Přijďte se na nás podívat! Seznámíte se s našimi obory, vybavením a studenty.</p>
+        <div class="mb-4">
+            <p class="text-dark fw-bold mb-1">Příští termín: <span class="text-primary">15. května 2025, 14:00-18:00</span></p>
+            <p class="text-muted small">Rezervace není nutná, přijďte s rodinou a přáteli.</p>
+        </div>
+        <a href="#" class="btn btn-primary btn-lg fw-bold rounded-pill px-5">Více informací</a>
+    </div>
+</div>
