@@ -1,8 +1,85 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Úvodní stránka";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="hero-section">
+    <span class="badge">Školní portál 2024/2025</span>
+    <h1 class="hero-title">Vítejte na portálu<br>SPŠ Trutnovská</h1>
+    <p class="hero-subtitle">
+        Rozvrhy, známky, úkoly a aktuality — vše na jednom místě.
+        Studenti a učitelé se přihlašují školním emailem.
+    </p>
+    <div class="hero-buttons">
+        <button class="btn-primary">Přihlásit se</button>
+        <button class="btn-primary">Zjistit více</button>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat-item">
+        <h2>420</h2>
+        <p>Studentů</p>
+    </div>
+    <div class="stat-item">
+        <h2>38</h2>
+        <p>Učitelů</p>
+    </div>
+    <div class="stat-item">
+        <h2>6</h2>
+        <p>Oborů</p>
+    </div>
+</section>
+
+<div class="section-header">
+    <h2 class="section-title">Aktuality</h2>
+    <a href="#" class="link-all">Všechny →</a>
+</div>
+
+<div class="news-list">
+    <div class="news-card">
+        <span class="news-badge oznameni">Oznámení</span>
+        <h3>Třídní schůzky — 20. dubna 2025</h3>
+        <p>14. dubna 2025</p>
+    </div>
+
+    <div class="news-card akce">
+        <span class="news-badge akce">Akce</span>
+        <h3>Školní výlet — Krkonoše, přihlašování do 18. dubna</h3>
+        <p>12. dubna 2025</p>
+    </div>
+
+    <div class="news-card prijimacky">
+        <span class="news-badge prijimacky">Přijímací řízení</span>
+        <h3>Přijímací zkoušky 2025 — termíny a podmínky</h3>
+        <p>10. dubna 2025</p>
+    </div>
+</div>
+
+<br>
+
+<div class="section-header">
+    <h2 class="section-title">Obory</h2>
+</div>
+
+<div class="fields-grid">
+    <div class="field-card">
+        <div class="field-icon icon-it">💻</div>
+        <h3>Informační technologie</h3>
+        <p>4letý obor, maturita</p>
+    </div>
+    <div class="field-card">
+        <div class="field-icon icon-stroj">⚙️</div>
+        <h3>Strojírenství</h3>
+        <p>4letý obor, maturita</p>
+    </div>
+    <div class="field-card">
+        <div class="field-icon icon-elektro">⚡</div>
+        <h3>Elektrotechnika</h3>
+        <p>4letý obor, maturita</p>
+    </div>
+    <div class="field-card">
+        <div class="field-icon icon-stavba">📐</div>
+        <h3>Stavebnictví</h3>
+        <p>4letý obor, maturita</p>
+    </div>
 </div>
