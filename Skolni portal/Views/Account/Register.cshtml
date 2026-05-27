@@ -3,37 +3,54 @@
     ViewData["Title"] = "Registrace";
 }
 
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4">
-        <div class="card shadow-sm p-4 rounded-4">
-            <h2 class="text-center mb-3">Vytvořit účet</h2>
-            <p class="text-center text-muted mb-4">SPŠ Trutnovská školní portál</p>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-2">Registrace</h2>
+                        <p class="text-muted">Vytvoření účtu na školním portálu</p>
+                    </div>
 
-            <form asp-action="Register" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <form method="post" asp-action="Register">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="Email" class="control-label">Školní email</label>
-                    <input asp-for="Email" class="form-control" placeholder="jmeno@spstrutnov.cz" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-medium">Školní email</label>
+                            <input asp-for="Email" class="form-control form-control-lg" placeholder="jmeno@sps-trutnovska.cz" autofocus autocomplete="username" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-medium">Heslo</label>
+                            <input asp-for="Password" class="form-control form-control-lg" placeholder="Zadejte heslo" autocomplete="new-password" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="ConfirmPassword" class="form-label fw-medium">Potvrzení hesla</label>
+                            <input asp-for="ConfirmPassword" class="form-control form-control-lg" placeholder="Zadejte heslo znovu" autocomplete="new-password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                            <div class="form-text">Heslo musí obsahovat alespoň 6 znaků a 1 číslici.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold mb-3 rounded-pill">
+                            Zaregistrovat se
+                        </button>
+                    </form>
+
+                    <div class="text-center">
+                        <p class="text-muted small mb-0">
+                            Již máte účet? <a asp-action="Login" class="text-decoration-none">Přihlaste se</a>
+                        </p>
+                    </div>
                 </div>
-
-                <div class="form-group mb-3">
-                    <label asp-for="Password" class="control-label">Heslo</label>
-                    <input asp-for="Password" class="form-control" type="password" placeholder="••••••••" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-
-                <div class="form-group mb-4">
-                    <label asp-for="ConfirmPassword" class="control-label">Potvrzení hesla</label>
-                    <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="••••••••" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-
-                <div class="form-group d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg rounded-pill">Zaregistrovat se</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Skolni_portal.Data;
 using Skolni_portal.Models;
-using Skolni_portal.ViewModels; // Přidáno, kdyby tvůj RegisterViewModel byl zde
+using Skolni_portal.ViewModels;
 
 namespace Skolni_portal.Controllers
 {
@@ -23,7 +23,7 @@ namespace Skolni_portal.Controllers
         }
 
         // ==========================================
-        // NOVÁ ČÁST: REGISTRACE
+        // REGISTRACE (AKCE)
         // ==========================================
 
         [HttpGet]
@@ -53,6 +53,7 @@ namespace Skolni_portal.Controllers
                     return RedirectToLocal(returnUrl);
                 }
 
+                // Pokud registrace v Identity selže (např. slabé heslo), vypíšeme chyby
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -63,7 +64,7 @@ namespace Skolni_portal.Controllers
         }
 
         // ==========================================
-        // TVÁ PŮVODNÍ ČÁST: PŘIHLÁŠENÍ A ODHLÁŠENÍ
+        // PŘIHLÁŠENÍ (AKCE)
         // ==========================================
 
         [HttpGet]
@@ -106,6 +107,10 @@ namespace Skolni_portal.Controllers
 
             return View(model);
         }
+
+        // ==========================================
+        // ODHLÁŠENÍ (AKCE)
+        // ==========================================
 
         [HttpPost]
         [ValidateAntiForgeryToken]
