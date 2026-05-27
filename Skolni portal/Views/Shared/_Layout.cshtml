@@ -54,6 +54,54 @@
         @RenderBody()
     </main>
 
+    <footer class="bg-white border-top mt-5">
+        <div class="container py-5">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold text-dark mb-3">SPŠ Trutnovská</h6>
+                    <p class="text-muted small mb-0">
+                        Moderní střední technická škola s tradicí. Připravujeme studenty na budoucnost v technických oborech.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold text-dark mb-3">Navigace</h6>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Home" asp-action="About" class="text-muted text-decoration-none small">O škole</a></li>
+                        <li><a asp-controller="Home" asp-action="Programs" class="text-muted text-decoration-none small">Obory</a></li>
+                        <li><a asp-controller="Home" asp-action="News" class="text-muted text-decoration-none small">Aktuality</a></li>
+                        <li><a asp-controller="Home" asp-action="Contact" class="text-muted text-decoration-none small">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold text-dark mb-3">Kontakt</h6>
+                    <p class="text-muted small mb-1">
+                        <i class="bi bi-telephone me-2"></i><a href="tel:+420499413999" class="text-muted text-decoration-none">+420 499 413 999</a>
+                    </p>
+                    <p class="text-muted small mb-1">
+                        <i class="bi bi-envelope me-2"></i><a href="mailto:info@sps-trutnovska.cz" class="text-muted text-decoration-none">info@sps-trutnovska.cz</a>
+                    </p>
+                    <p class="text-muted small mb-0">
+                        <i class="bi bi-geo-alt me-2"></i>Av. Generála Svobody 1500, Trutnov
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold text-dark mb-3">Právní informace</h6>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Home" asp-action="Privacy" class="text-muted text-decoration-none small">Ochrana dat</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none small">Podmínky používání</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none small">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="text-muted small mb-0">
+                    &copy; 2024-2025 SPŠ Trutnovská. Všechna práva vyhrazena.
+                </p>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
