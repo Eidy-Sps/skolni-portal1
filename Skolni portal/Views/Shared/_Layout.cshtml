@@ -36,7 +36,7 @@
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="post" asp-controller="Account" asp-action="Logout" style="display:inline;">
-                                    <button type="submit" class="dropdown-item">Odhlásit se</button>
+                                    <button type="submit" class="dropdown-item text-danger">Odhlásit se</button>
                                 </form>
                             </li>
                         </ul>
@@ -44,7 +44,10 @@
                 }
                 else
                 {
-                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-dark fw-bold rounded-pill px-4">Přihlásit se</a>
+                    <div class="d-flex gap-2">
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-primary fw-bold rounded-pill px-4">Registrace</a>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-dark fw-bold rounded-pill px-4">Přihlásit se</a>
+                    </div>
                 }
             </div>
         </div>
@@ -96,7 +99,7 @@
             <hr class="my-4">
             <div class="text-center">
                 <p class="text-muted small mb-0">
-                    &copy; 2024-2025 SPŠ Trutnovská. Všechna práva vyhrazena.
+                    &copy; 2024-2026 SPŠ Trutnovská. Všechna práva vyhrazena.
                 </p>
             </div>
         </div>

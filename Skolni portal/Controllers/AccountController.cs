@@ -1,24 +1,70 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Skolni_portal.Data;
 using Skolni_portal.Models;
+using Skolni_portal.ViewModels; // Přidáno, kdyby tvůj RegisterViewModel byl zde
 
 namespace Skolni_portal.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<AccountController> _logger;
 
         public AccountController(
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
             ILogger<AccountController> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
         }
+
+        // ==========================================
+        // NOVÁ ČÁST: REGISTRACE
+        // ==========================================
+
+        [HttpGet]
+        public IActionResult Register(string? returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string? returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("Uživatel {email} si úspěšně vytvořil účet.", model.Email);
+
+                    // Po úspěšné registraci uživatele rovnou přihlásíme
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToLocal(returnUrl);
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        }
+
+        // ==========================================
+        // TVÁ PŮVODNÍ ČÁST: PŘIHLÁŠENÍ A ODHLÁŠENÍ
+        // ==========================================
 
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
