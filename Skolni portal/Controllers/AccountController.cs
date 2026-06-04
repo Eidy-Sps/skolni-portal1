@@ -37,9 +37,9 @@ namespace Skolni_portal.Controllers
             if (ModelState.IsValid)
             {
                 // Dvojitá kontrola, že e-mail končí správnou doménou
-                if (!model.Email.EndsWith("@spstrutnov.cz", StringComparison.OrdinalIgnoreCase))
+                if (!model.Email.EndsWith("@spstrutnovska.cz", StringComparison.OrdinalIgnoreCase))
                 {
-                    ModelState.AddModelError(string.Empty, "Registrace je povolena pouze pro doménu @spstrutnov.cz");
+                    ModelState.AddModelError(string.Empty, "Registrace je povolena pouze pro doménu @spstrutnovska.cz");
                     return View(model);
                 }
 
