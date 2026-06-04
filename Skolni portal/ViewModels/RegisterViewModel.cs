@@ -6,7 +6,7 @@ namespace Skolni_portal.ViewModels
     {
         [Required(ErrorMessage = "Email je povinný.")]
         [EmailAddress(ErrorMessage = "Neplatný formát emailu.")]
-        [RegularExpression(@"^[a-zA-Z0-9_.+-]+@spstrutnovska\.cz$", ErrorMessage = "Registrace je povolena pouze pro školní emaily (končící na @spstrutnovska.cz)")]
+        [RegularExpression(@"^[a-zA-Z0-9_.+-]+@spstrutnov\.cz$", ErrorMessage = "Registrace je povolena pouze pro školní emaily (končící na @spstrutnov.cz)")]
         [Display(Name = "Školní Email")]
         public string Email { get; set; } = string.Empty;
 
