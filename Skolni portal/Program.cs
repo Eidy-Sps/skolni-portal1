@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. Připojení databáze
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -21,7 +20,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
 
-    // Frantovo vylepšení: Uzamčení účtu po 5 špatných pokusech na 5 minut
+    // Uzamčení účtu po 5 špatných pokusech na 5 minut
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.SignIn.RequireConfirmedEmail = false;
@@ -45,7 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// 3. ZAPNUTÍ AUTENTIZACE! (Musí být přesně v tomto pořadí před MapControllerRoute)
+// 3. ZAPNUTÍ AUTENTIZACE! 
 app.UseAuthentication();
 app.UseAuthorization();
 

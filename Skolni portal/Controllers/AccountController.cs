@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Skolni_portal.Data;
-using Skolni_portal.Models;
 using Skolni_portal.ViewModels;
 
 namespace Skolni_portal.Controllers
@@ -22,10 +21,6 @@ namespace Skolni_portal.Controllers
             _logger = logger;
         }
 
-        // ==========================================
-        // REGISTRACE (AKCE)
-        // ==========================================
-
         [HttpGet]
         public IActionResult Register(string? returnUrl = null)
         {
@@ -41,19 +36,23 @@ namespace Skolni_portal.Controllers
 
             if (ModelState.IsValid)
             {
+                // Dvojitá kontrola, že e-mail končí správnou doménou
+                if (!model.Email.EndsWith("@spstrutnov.cz", StringComparison.OrdinalIgnoreCase))
+                {
+                    ModelState.AddModelError(string.Empty, "Registrace je povolena pouze pro doménu @spstrutnov.cz");
+                    return View(model);
+                }
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("Uživatel {email} si úspěšně vytvořil účet.", model.Email);
-
-                    // Po úspěšné registraci uživatele rovnou přihlásíme
+                    _logger.LogInformation("Uživatel si úspěšně vytvořil účet.");
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
                 }
 
-                // Pokud registrace v Identity selže (např. slabé heslo), vypíšeme chyby
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -62,10 +61,6 @@ namespace Skolni_portal.Controllers
 
             return View(model);
         }
-
-        // ==========================================
-        // PŘIHLÁŠENÍ (AKCE)
-        // ==========================================
 
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
@@ -90,27 +85,22 @@ namespace Skolni_portal.Controllers
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("Uživatel {email} se úspěšně přihlásil.", model.Email);
+                    _logger.LogInformation("Uživatel se úspěšně přihlásil.");
                     return RedirectToLocal(returnUrl);
                 }
 
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("Uživatelský účet {email} je zamčený.", model.Email);
+                    _logger.LogWarning("Uživatelský účet je zamčený.");
                     ModelState.AddModelError(string.Empty, "Účet je dočasně zamčený. Zkuste to později.");
                     return View(model);
                 }
 
                 ModelState.AddModelError(string.Empty, "Neplatný email nebo heslo.");
-                _logger.LogWarning("Neúspěšný pokus o přihlášení pro uživatele {email}.", model.Email);
             }
 
             return View(model);
         }
-
-        // ==========================================
-        // ODHLÁŠENÍ (AKCE)
-        // ==========================================
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,7 +108,7 @@ namespace Skolni_portal.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("Uživatel se odhlásil.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         private IActionResult RedirectToLocal(string? returnUrl)
@@ -127,7 +117,7 @@ namespace Skolni_portal.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

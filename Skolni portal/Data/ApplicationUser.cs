@@ -4,8 +4,6 @@ namespace Skolni_portal.Data
 {
     public class ApplicationUser : IdentityUser
     {
-        // Tady je zatím prázdno, ale později sem můžeme přidat třeba:
-        // public string Jmeno { get; set; }
-        // public string Prijmeni { get; set; }
+        // Zde můžeš v budoucnu přidat další sloupce (např. Jméno, Třída atd.)
     }
 }
