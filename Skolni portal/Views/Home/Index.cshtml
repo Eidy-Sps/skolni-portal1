@@ -11,8 +11,8 @@
             Studenti a učitelé se přihlašují školním emailem.
         </p>
         <div class="d-flex gap-3">
-            <button class="btn btn-outline-dark fw-bold px-4 py-2 rounded-pill">Přihlásit se</button>
-            <button class="btn btn-light border fw-bold px-4 py-2 rounded-pill card-hover">Zjistit více</button>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-outline-dark fw-bold px-4 py-2 rounded-pill">Přihlásit se</a>
+            <a href="#obory" class="btn btn-light border fw-bold px-4 py-2 rounded-pill card-hover">Zjistit více</a>
         </div>
     </div>
 </div>
@@ -34,7 +34,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="fw-bold m-0">Aktuality</h3>
-    <a href="#" class="text-decoration-none fw-bold">Všechny <i class="bi bi-arrow-right"></i></a>
+    <a asp-controller="Home" asp-action="News" class="text-decoration-none fw-bold">Všechny <i class="bi bi-arrow-right"></i></a>
 </div>
 
 <div class="d-flex flex-column gap-3 mb-5">
@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<h3 class="fw-bold mb-4">Obory</h3>
+<h3 class="fw-bold mb-4" id="obory">Obory</h3>
 <div class="row g-4 mb-5 pb-5">
     <div class="col-md-6">
         <div class="card card-hover rounded-4 shadow-sm h-100 p-2">

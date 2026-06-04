@@ -1,5 +1,19 @@
-namespace Skolni_portal
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Skolni_portal.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Připojení databáze
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+// 2. Nastavení Identity (přihlašování)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
+<<<<<<< HEAD
     public class Program
     {
         public static void Main(string[] args)
@@ -13,19 +27,45 @@ namespace Skolni_portal
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+=======
+    // Pravidla pro hesla
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
+    // Uzamčení účtu po 5 špatných pokusech na 5 minut
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.SignIn.RequireConfirmedEmail = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
-            app.UseAuthorization();
+builder.Services.AddControllersWithViews();
 
-            app.MapStaticAssets();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+var app = builder.Build();
+>>>>>>> origin/Adam-
 
-            app.Run();
-        }
-    }
+// Konfigurace chování v produkci vs vývoji
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+// 3. ZAPNUTÍ AUTENTIZACE! 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
