@@ -1,4 +1,3 @@
-/* wwwroot/css/site.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
@@ -6,12 +5,10 @@ body {
     color: #2d3748;
 }
 
-/* Jemně krémové pozadí z vašeho návrhu */
 .bg-light-custom {
     background-color: #fcfbf9;
 }
 
-/* Hover efekty na karty (zvednou se a přidá se stín) */
 .card-hover {
     transition: all 0.3s ease;
     border: 1px solid #edf2f7;
