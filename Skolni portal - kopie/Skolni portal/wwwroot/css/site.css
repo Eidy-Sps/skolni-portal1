@@ -1,0 +1,89 @@
+/* wwwroot/css/site.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #2d3748;
+}
+
+.bg-light-custom {
+    background-color: #fcfbf9;
+}
+
+/* Hover efekty na karty (zvednou se a přidá se stín) */
+.card-hover {
+    transition: all 0.3s ease;
+    border: 1px solid #edf2f7;
+}
+
+    .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+        border-color: #e2e8f0;
+    }
+
+/* Barevné linky nahoře u aktualit */
+.border-top-oznameni {
+    border-top: 4px solid #0d6efd !important;
+}
+
+.border-top-akce {
+    border-top: 4px solid #198754 !important;
+}
+
+.border-top-prijimacky {
+    border-top: 4px solid #fd7e14 !important;
+}
+
+/* Barevná kolečka pro ikony oborů */
+.icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.bg-it {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+}
+
+.bg-stroj {
+    background-color: #e8f5e9;
+    color: #198754;
+}
+
+.bg-elektro {
+    background-color: #fff3cd;
+    color: #ffc107;
+}
+
+.bg-stavba {
+    background-color: #f3e5f5;
+    color: #9c27b0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar-brand-custom {
+        font-size: 1rem;
+    }
+
+    .user-badge {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .status-bar .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .status-bar .separator {
+        display: none;
+    }
+}

@@ -1,0 +1,6 @@
+services:
+  skolniportal:
+    image: ${DOCKER_REGISTRY-}skolniportal
+    build:
+      context: Skolni portal
+      dockerfile: Dockerfile
