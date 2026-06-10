@@ -32,8 +32,17 @@
                             <input type="text" class="form-control" id="subject" name="subject" placeholder="Matematika" required />
                         </div>
                         <div class="col-md-3">
-                            <label for="studentId" class="form-label">Žák (ID)</label>
-                            <input type="number" class="form-control" id="studentId" name="studentId" placeholder="ID žáka" required />
+                            <label for="studentEmail" class="form-label">Žák</label>
+                            <select class="form-select" id="studentEmail" name="studentEmail" required>
+                                <option selected disabled value="">-- Vyberte žáka --</option>
+                                @if (ViewBag.Students != null)
+                                {
+                                    @foreach (var student in ViewBag.Students)
+                                    {
+                                        <option value="@student.Email">@student.Email</option>
+                                    }
+                                }
+                            </select>
                         </div>
                         <div class="col-md-2">
                             <label for="gradeValue" class="form-label">Známka (1-5)</label>
@@ -71,7 +80,7 @@
                             <table class="table table-hover mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>Žák (ID)</th>
+                                        <th>Žák</th>
                                         <th>Třída</th>
                                         <th>Předmět</th>
                                         <th>Známka</th>
@@ -84,7 +93,7 @@
                                     {
                                         <tr>
                                             <td>
-                                                <strong>@grade.StudentId</strong>
+                                                <strong>@(grade.Student?.Email ?? grade.StudentId)</strong>
                                             </td>
                                             <td>@grade.ClassName</td>
                                             <td>@grade.SubjectName</td>

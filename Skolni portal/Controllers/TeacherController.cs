@@ -45,8 +45,15 @@ namespace Skolni_portal.Controllers
             var classes = grades.Select(g => g.ClassName).Distinct().ToList();
             var subjects = grades.Select(g => g.SubjectName).Distinct().ToList();
 
+            // Získání všech žáků (bez učitelů)
+            var allStudents = await _userManager.Users
+                .Where(u => !u.IsTeacher)
+                .OrderBy(u => u.Email)
+                .ToListAsync();
+
             ViewBag.Classes = classes;
             ViewBag.Subjects = subjects;
+            ViewBag.Students = allStudents;
 
             return View(grades);
         }
@@ -54,7 +61,7 @@ namespace Skolni_portal.Controllers
         // POST: /Teacher/AddGrade
         [HttpPost("AddGrade")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddGrade(int studentId, string subject, string className, int gradeValue)
+        public async Task<IActionResult> AddGrade(string studentEmail, string subject, string className, int gradeValue)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null || !user.IsTeacher)
@@ -68,7 +75,7 @@ namespace Skolni_portal.Controllers
                 return BadRequest("Známka musí být mezi 1 a 5.");
             }
 
-            var student = await _userManager.FindByIdAsync(studentId.ToString());
+            var student = await _userManager.FindByNameAsync(studentEmail);
             if (student == null)
             {
                 return NotFound("Žák nebyl nalezen.");
