@@ -66,3 +66,24 @@ body {
     background-color: #f3e5f5;
     color: #9c27b0;
 }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar-brand-custom {
+        font-size: 1rem;
+    }
+
+    .user-badge {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .status-bar .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .status-bar .separator {
+        display: none;
+    }
+}
