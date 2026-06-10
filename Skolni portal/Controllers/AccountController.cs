@@ -87,6 +87,13 @@ namespace Skolni_portal.Controllers
                     }
 
                     _logger.LogInformation("Uživatel si úspěšně vytvořil účet. Učitel: {IsTeacher}", model.IsTeacher);
+
+                    // Přidání IsTeacher claim
+                    if (model.IsTeacher)
+                    {
+                        await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("IsTeacher", "True"));
+                    }
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
                 }
@@ -115,6 +122,8 @@ namespace Skolni_portal.Controllers
 
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(model.Email);
+
                 var result = await _signInManager.PasswordSignInAsync(
                     model.Email,
                     model.Password,

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Skolni_portal.Data;
+using Skolni_portal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedEmail = false;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders();
+.AddDefaultTokenProviders()
+.AddClaimsPrincipalFactory<ApplicationClaimsPrincipalFactory>();
 
 builder.Services.AddControllersWithViews();
 
@@ -64,7 +66,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// 3. ZAPNUTÍ AUTENTIZACE! 
+// 3. ZAPNUTÍ AUTENTIZACE!
 app.UseAuthentication();
 app.UseAuthorization();
 
