@@ -31,8 +31,9 @@
                             <i class="bi bi-person-circle me-2"></i>@User.Identity?.Name
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#">Můj profil</a></li>
-                            <li><a class="dropdown-item" href="#">Nastavení</a></li>
+                            <li><a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-speedometer2 me-2"></i> Můj panel</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Můj profil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Nastavení</a></li>
                             @if (User.Identity?.Name?.Contains("admin") ?? false)
                             {
                                 <li><hr class="dropdown-divider"></li>

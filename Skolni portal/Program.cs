@@ -32,6 +32,26 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+// Vytvoření rolí při startu aplikace
+_ = CreateRolesAsync(app);
+
+async Task CreateRolesAsync(WebApplication webApp)
+{
+    using (var scope = webApp.Services.CreateScope())
+    {
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        string[] roles = { "Teacher", "Student" };
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
+    }
+}
+
 // Konfigurace chování v produkci vs vývoji
 if (!app.Environment.IsDevelopment())
 {

@@ -76,6 +76,16 @@ namespace Skolni_portal.Controllers
 
                 if (result.Succeeded)
                 {
+                    // Přiřazení role podle typu uživatele
+                    if (model.IsTeacher)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Teacher");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Student");
+                    }
+
                     _logger.LogInformation("Uživatel si úspěšně vytvořil účet. Učitel: {IsTeacher}", model.IsTeacher);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
