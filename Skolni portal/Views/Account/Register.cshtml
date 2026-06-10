@@ -35,6 +35,22 @@
                             <div class="form-text">Heslo musí obsahovat alespoň 6 znaků a 1 číslici.</div>
                         </div>
 
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input asp-for="IsTeacher" class="form-check-input" id="isTeacher" />
+                                <label asp-for="IsTeacher" class="form-check-label fw-medium">
+                                    Registruji se jako učitel
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4" id="teacherCodeDiv" style="display: none;">
+                            <label asp-for="TeacherCode" class="form-label fw-medium">Správní kód pro učitele</label>
+                            <input asp-for="TeacherCode" class="form-control form-control-lg" placeholder="Zadejte správní kód" />
+                            <span asp-validation-for="TeacherCode" class="text-danger small"></span>
+                            <div class="form-text">Pouze učitelé mají přístup k tomuto kódu.</div>
+                        </div>
+
                         <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold mb-3 rounded-pill">
                             Zaregistrovat se
                         </button>
@@ -50,6 +66,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('isTeacher').addEventListener('change', function() {
+        const teacherCodeDiv = document.getElementById('teacherCodeDiv');
+        if (this.checked) {
+            teacherCodeDiv.style.display = 'block';
+        } else {
+            teacherCodeDiv.style.display = 'none';
+        }
+    });
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

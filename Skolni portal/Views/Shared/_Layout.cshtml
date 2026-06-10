@@ -33,6 +33,13 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="#">Můj profil</a></li>
                             <li><a class="dropdown-item" href="#">Nastavení</a></li>
+                            @if (User.Identity?.Name?.Contains("admin") ?? false)
+                            {
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="dropdown-header">Administrace</li>
+                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="TeacherCodes">Správa kódů učitelů</a></li>
+                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="Teachers">Seznam učitelů</a></li>
+                            }
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="post" asp-controller="Account" asp-action="Logout" style="display:inline;">

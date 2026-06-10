@@ -19,5 +19,11 @@ namespace Skolni_portal.ViewModels
         [Display(Name = "Potvrzení hesla")]
         [Compare("Password", ErrorMessage = "Hesla se neshodují.")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Display(Name = "Registruji se jako učitel")]
+        public bool IsTeacher { get; set; } = false;
+
+        [Display(Name = "Správní kód pro učitele")]
+        public string? TeacherCode { get; set; }
     }
 }

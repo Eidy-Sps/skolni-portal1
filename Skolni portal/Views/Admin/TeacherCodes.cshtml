@@ -1,0 +1,120 @@
+@model List<TeacherCode>
+@{
+    ViewData["Title"] = "Správa kódů učitelů";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Správa kódů pro registraci učitelů</h2>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Vytvořit nový kód</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="CreateTeacherCode">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label for="code" class="form-label">Kód</label>
+                                    <input type="text" class="form-control" id="code" name="code" placeholder="např. UCITEL2025" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="submitBtn" class="form-label d-block">&nbsp;</label>
+                                    <button type="submit" class="btn btn-success w-100" id="submitBtn">
+                                        Vytvořit kód
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Existující kódy</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Kód</th>
+                                <th>Stav</th>
+                                <th>Vytvořen</th>
+                                <th>Akce</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count == 0)
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">Žádné kódy neexistují</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var code in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <code class="bg-light p-2">@code.Code</code>
+                                        </td>
+                                        <td>
+                                            @if (code.IsActive)
+                                            {
+                                                <span class="badge bg-success">Aktivní</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">Deaktivní</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @code.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                                        </td>
+                                        <td>
+                                            @if (code.IsActive)
+                                            {
+                                                <form method="post" asp-action="DeactivateTeacherCode" style="display: inline;">
+                                                    <input type="hidden" name="id" value="@code.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-warning">
+                                                        Deaktivovat
+                                                    </button>
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="@Url.Action("Teachers", "Admin")" class="btn btn-info">Zobrazit registrované učitele</a>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Zpět na domů</a>
+            </div>
+        </div>
+    </div>
+</div>
