@@ -1,117 +1,169 @@
+@model Skolni_portal.Data.ApplicationUser
 @{
-    ViewData["Title"] = "Dashboard - Žák";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Žákovský Panel";
 }
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card border-left-info shadow-lg">
+            <div class="card border-left-info shadow">
                 <div class="card-body">
-                    <h1 class="card-title fw-bold mb-2">Vítejte, @ViewData["UserName"]!</h1>
-                    <p class="text-muted">Žákovský panel - @ViewData["UserEmail"]</p>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="text-info" style="font-size: 2.5rem;">
+                                <i class="bi bi-mortarboard"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h4 class="card-title fw-bold mb-0">Vítejte, @Model.UserName!</h4>
+                            <p class="text-muted mb-0">Žákovský panel</p>
+                            <small class="text-muted">Email: @Model.Email</small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Hlavní sekce -->
     <div class="row">
-        <!-- Sekce Moje známky -->
-        <div class="col-md-6 mb-4">
+        <!-- Moje známky -->
+        <div class="col-lg-6 col-md-12 mb-4">
             <div class="card shadow h-100">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-star"></i> Moje známky
-                    </h5>
+                <div class="card-header bg-primary text-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-star-fill"></i> Moje známky
+                    </h6>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Přehled vašich známek z jednotlivých předmětů.</p>
+                    <p class="text-muted">Přehled vašich známek z jednotlivých předmětů</p>
                     <div class="table-responsive">
-                        <table class="table table-sm">
-                            <thead>
+                        <table class="table table-sm table-hover">
+                            <thead class="table-light">
                                 <tr>
                                     <th>Předmět</th>
                                     <th>Průměr</th>
-                                    <th>Stav</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="3" class="text-muted text-center">
-                                        <small>Funkce je připravena pro implementaci.</small>
+                                    <td colspan="2" class="text-muted text-center py-3">
+                                        <small><i class="bi bi-info-circle"></i> Čekání na data...</small>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <a href="#" class="btn btn-sm btn-primary">Detaily</a>
+                    <button type="button" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-right"></i> Detailní přehled
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Sekce Můj rozvrh -->
-        <div class="col-md-6 mb-4">
+        <!-- Můj rozvrh -->
+        <div class="col-lg-6 col-md-12 mb-4">
             <div class="card shadow h-100">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-calendar"></i> Můj rozvrh
-                    </h5>
+                <div class="card-header bg-success text-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-calendar2-week"></i> Můj rozvrh
+                    </h6>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Přehled vašeho týdenního rozvrhu.</p>
-                    <div class="alert alert-info">
-                        <small>Funkce je připravena pro implementaci.</small>
+                    <p class="text-muted">Váš týdenní rozvrh hodin</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> Připraveno pro implementaci
                     </div>
-                    <a href="#" class="btn btn-sm btn-success">Zobrazit rozvrh</a>
+                    <button type="button" class="btn btn-sm btn-success">
+                        <i class="bi bi-arrow-right"></i> Zobrazit rozvrh
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Moje absence -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Moje absence
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Počet vašich absencí a omluvenek</p>
+                    <div class="row g-3 my-2">
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded text-center">
+                                <h5 class="text-danger mb-1">0</h5>
+                                <small class="text-muted">Neomluvené</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded text-center">
+                                <h5 class="text-success mb-1">0</h5>
+                                <small class="text-muted">Omluvenoké</small>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-warning w-100 mt-2">
+                        <i class="bi bi-arrow-right"></i> Detaily absence
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Domácí úkoly -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-info text-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-list-task"></i> Domácí úkoly
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Vámi zadané úkoly a lhůty odevzdání</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> Připraveno pro implementaci
+                    </div>
+                    <button type="button" class="btn btn-sm btn-info">
+                        <i class="bi bi-arrow-right"></i> Zobrazit úkoly
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <!-- Sekce Absence -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-header bg-warning text-dark">
-                    <h5 class="mb-0">
-                        <i class="fas fa-exclamation-circle"></i> Moje absence
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <p class="text-muted">Počet vašich absencí a omluvenek.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="text-center">
-                                <h4 class="text-danger">0</h4>
-                                <small>Neomluvených</small>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center">
-                                <h4 class="text-success">0</h4>
-                                <small>Omluvenek</small>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="btn btn-sm btn-warning mt-3 w-100">Detaily absence</a>
+    <!-- Statistiky -->
+    <div class="row mt-4">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-primary">0</h5>
+                    <p class="text-muted small mb-0">Průměr známek</p>
                 </div>
             </div>
         </div>
-
-        <!-- Sekce Domácí úkoly -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-tasks"></i> Domácí úkoly
-                    </h5>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-warning">0</h5>
+                    <p class="text-muted small mb-0">Hodin v rozvrhu</p>
                 </div>
-                <div class="card-body">
-                    <p class="text-muted">Vaše zadané úkoly a lhůty.</p>
-                    <div class="alert alert-info">
-                        <small>Funkce je připravena pro implementaci.</small>
-                    </div>
-                    <a href="#" class="btn btn-sm btn-info">Zobrazit úkoly</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-danger">0</h5>
+                    <p class="text-muted small mb-0">Absencí</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-info">0</h5>
+                    <p class="text-muted small mb-0">Aktivních úkolů</p>
                 </div>
             </div>
         </div>
@@ -120,23 +172,9 @@
 
 <style>
     .card-header {
-        padding: 0.75rem 1.25rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        border-bottom: 1px solid rgba(0,0,0,0.125);
     }
-
-    .card-header h5 {
-        margin-bottom: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .card {
-        border: none;
-        border-radius: 0.5rem;
-    }
-
     .border-left-info {
-        border-left: 0.25rem solid #17a2b8 !important;
+        border-left: 4px solid #0dcaf0 !important;
     }
 </style>

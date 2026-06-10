@@ -1,91 +1,144 @@
+@model Skolni_portal.Data.ApplicationUser
 @{
-    ViewData["Title"] = "Dashboard - Učitel";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Učitelský Panel";
 }
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card border-left-primary shadow-lg">
+            <div class="card border-left-primary shadow">
                 <div class="card-body">
-                    <h1 class="card-title fw-bold mb-2">Vítejte, @ViewData["UserName"]!</h1>
-                    <p class="text-muted">Učitelský panel - @ViewData["UserEmail"]</p>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="text-primary" style="font-size: 2.5rem;">
+                                <i class="bi bi-person-badge"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h4 class="card-title fw-bold mb-0">Vítejte, @Model.UserName!</h4>
+                            <p class="text-muted mb-0">Učitelský panel</p>
+                            <small class="text-muted">Email: @Model.Email</small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Hlavní sekce -->
     <div class="row">
-        <!-- Sekce Třídy -->
-        <div class="col-md-6 mb-4">
+        <!-- Moje třídy -->
+        <div class="col-lg-6 col-md-12 mb-4">
             <div class="card shadow h-100">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-users"></i> Moje třídy
-                    </h5>
+                <div class="card-header bg-primary text-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-people-fill"></i> Moje třídy
+                    </h6>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Zde budou vaše přiřazené třídy.</p>
-                    <div class="alert alert-info">
-                        <small>Funkce je připravena pro implementaci.</small>
+                    <p class="text-muted">Přehled přiřazených tříd</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> Připraveno pro implementaci
                     </div>
-                    <a href="#" class="btn btn-sm btn-primary">Spravovat třídy</a>
+                    <button type="button" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-right"></i> Zobrazit třídy
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Sekce Známky -->
-        <div class="col-md-6 mb-4">
+        <!-- Zadávání známek -->
+        <div class="col-lg-6 col-md-12 mb-4">
             <div class="card shadow h-100">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-star"></i> Zadávání známek
-                    </h5>
+                <div class="card-header bg-success text-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-star-fill"></i> Zadávání známek
+                    </h6>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Spravujte známky vašich žáků.</p>
-                    <div class="alert alert-info">
-                        <small>Funkce je připravena pro implementaci.</small>
+                    <p class="text-muted">Spravujte známky vašich žáků</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> Připraveno pro implementaci
                     </div>
-                    <a href="#" class="btn btn-sm btn-success">Zadávat známky</a>
+                    <button type="button" class="btn btn-sm btn-success">
+                        <i class="bi bi-arrow-right"></i> Spravovat známky
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rozvrh hodin -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-calendar2-week"></i> Můj rozvrh
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Přehled vašich vyukovacích hodin</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> Připraveno pro implementaci
+                    </div>
+                    <button type="button" class="btn btn-sm btn-warning">
+                        <i class="bi bi-arrow-right"></i> Zobrazit rozvrh
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Absence žáků -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-danger text-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Absence žáků
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Sledování a správa absencí</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> Připraveno pro implementaci
+                    </div>
+                    <button type="button" class="btn btn-sm btn-danger">
+                        <i class="bi bi-arrow-right"></i> Spravovat absence
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <!-- Sekce Rozvrh -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-header bg-warning text-dark">
-                    <h5 class="mb-0">
-                        <i class="fas fa-calendar"></i> Můj rozvrh
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <p class="text-muted">Přehled vašich hodin.</p>
-                    <div class="alert alert-info">
-                        <small>Funkce je připravena pro implementaci.</small>
-                    </div>
-                    <a href="#" class="btn btn-sm btn-warning">Zobrazit rozvrh</a>
+    <!-- Statistiky -->
+    <div class="row mt-4">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-primary">0</h5>
+                    <p class="text-muted small mb-0">Moje třídy</p>
                 </div>
             </div>
         </div>
-
-        <!-- Sekce Absence -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-header bg-danger text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-exclamation-circle"></i> Absence žáků
-                    </h5>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-success">0</h5>
+                    <p class="text-muted small mb-0">Žáků v tabulce</p>
                 </div>
-                <div class="card-body">
-                    <p class="text-muted">Sledujte absence v třídách.</p>
-                    <div class="alert alert-info">
-                        <small>Funkce je připravena pro implementaci.</small>
-                    </div>
-                    <a href="#" class="btn btn-sm btn-danger">Spravovat absence</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-warning">0</h5>
+                    <p class="text-muted small mb-0">Zadaných hodin</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="text-danger">0</h5>
+                    <p class="text-muted small mb-0">Absencí k řešení</p>
                 </div>
             </div>
         </div>
@@ -94,19 +147,9 @@
 
 <style>
     .card-header {
-        padding: 0.75rem 1.25rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        border-bottom: 1px solid rgba(0,0,0,0.125);
     }
-
-    .card-header h5 {
-        margin-bottom: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .card {
-        border: none;
-        border-radius: 0.5rem;
+    .border-left-primary {
+        border-left: 4px solid #0d6efd !important;
     }
 </style>

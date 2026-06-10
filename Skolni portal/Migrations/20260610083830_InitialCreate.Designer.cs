@@ -12,8 +12,8 @@ using Skolni_portal.Data;
 namespace Skolni_portal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260610080551_AddTeacherSupport")]
-    partial class AddTeacherSupport
+    [Migration("20260610083830_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,8 +252,8 @@ namespace Skolni_portal.Migrations
                         new
                         {
                             Id = 1,
-                            Code = "UCITEL2024",
-                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "UCITEL2026",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = true
                         });
                 });

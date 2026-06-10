@@ -9,58 +9,47 @@ namespace Skolni_portal.Controllers
     public class DashboardController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<DashboardController> _logger;
 
-        public DashboardController(
-            UserManager<ApplicationUser> userManager,
-            ILogger<DashboardController> logger)
+        public DashboardController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return RedirectToAction("Login", "Account");
+                return Unauthorized();
 
-            var roles = await _userManager.GetRolesAsync(user);
-
-            if (roles.Contains("Teacher"))
+            // Kontrola role
+            if (user.IsTeacher)
             {
-                return RedirectToAction("TeacherDashboard");
+                return View("TeacherDashboard", user);
             }
-            else if (roles.Contains("Student"))
+            else
             {
-                return RedirectToAction("StudentDashboard");
+                return View("StudentDashboard", user);
             }
-
-            return RedirectToAction("Index", "Home");
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize]
         public async Task<IActionResult> TeacherDashboard()
         {
             var user = await _userManager.GetUserAsync(User);
+            if (user == null || !user.IsTeacher)
+                return Forbid();
 
-            // Zde budou data pro učitele
-            ViewData["UserEmail"] = user?.Email;
-            ViewData["UserName"] = user?.UserName;
-
-            return View();
+            return View(user);
         }
 
-        [Authorize(Roles = "Student")]
+        [Authorize]
         public async Task<IActionResult> StudentDashboard()
         {
             var user = await _userManager.GetUserAsync(User);
+            if (user == null || user.IsTeacher)
+                return Forbid();
 
-            // Zde budou data pro žáky
-            ViewData["UserEmail"] = user?.Email;
-            ViewData["UserName"] = user?.UserName;
-
-            return View();
+            return View(user);
         }
     }
 }
