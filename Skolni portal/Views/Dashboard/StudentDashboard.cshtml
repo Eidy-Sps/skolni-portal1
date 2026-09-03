@@ -90,24 +90,13 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Počet vašich absencí a omluvenek</p>
-                    <div class="row g-3 my-2">
-                        <div class="col-6">
-                            <div class="p-3 bg-light rounded text-center">
-                                <h5 class="text-danger mb-1">0</h5>
-                                <small class="text-muted">Neomluvené</small>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="p-3 bg-light rounded text-center">
-                                <h5 class="text-success mb-1">0</h5>
-                                <small class="text-muted">Omluvenoké</small>
-                            </div>
-                        </div>
+                    <p class="text-muted">Přehled vašich absencí ze všech hodin</p>
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-info-circle"></i> Zde vidíte všechny vaše absence
                     </div>
-                    <button type="button" class="btn btn-sm btn-warning w-100 mt-2">
-                        <i class="bi bi-arrow-right"></i> Detaily absence
-                    </button>
+                    <a href="@Url.Action("MyAbsences", "Absence")" class="btn btn-sm btn-warning w-100">
+                        <i class="bi bi-arrow-right"></i> Zobrazit moje absence
+                    </a>
                 </div>
             </div>
         </div>

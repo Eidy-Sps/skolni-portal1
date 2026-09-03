@@ -96,13 +96,13 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Sledování a správa absencí</p>
-                    <div class="alert alert-info" role="alert">
-                        <i class="bi bi-info-circle"></i> Připraveno pro implementaci
+                    <p class="text-muted">Sledování a správa absencí v třídách</p>
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-lightbulb"></i> <strong>Tip:</strong> Markujte absence žáků pomocí správy absence
                     </div>
-                    <button type="button" class="btn btn-sm btn-danger">
+                    <a href="@Url.Action("ManageAbsences", "Absence", new { classId = 1 })" class="btn btn-sm btn-danger">
                         <i class="bi bi-arrow-right"></i> Spravovat absence
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

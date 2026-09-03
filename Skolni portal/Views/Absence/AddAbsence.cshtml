@@ -1,0 +1,82 @@
+@{
+    ViewData["Title"] = "Přidat absenci";
+    var classId = ViewData["ClassId"];
+    var className = ViewData["ClassName"];
+    var students = ViewData["Students"] as ICollection<Skolni_portal.Data.StudentClass>;
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0">
+                        <i class="bi bi-plus-circle"></i> Přidat absenci - Třída @className
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="AddAbsence" asp-route-classId="@classId">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="studentId" class="form-label fw-bold">Žák <span class="text-danger">*</span></label>
+                                <select name="studentId" id="studentId" class="form-select form-select-lg" required>
+                                    <option value="">-- Vyberte žáka --</option>
+                                    @if (students != null)
+                                    {
+                                        @foreach (var sc in students)
+                                        {
+                                            <option value="@sc.StudentId">@sc.Student?.Email</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="absenceDate" class="form-label fw-bold">Datum <span class="text-danger">*</span></label>
+                                <input type="date" name="absenceDate" id="absenceDate" class="form-control form-control-lg" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="subject" class="form-label fw-bold">Předmět <span class="text-danger">*</span></label>
+                                <input type="text" name="subject" id="subject" class="form-control form-control-lg" 
+                                       placeholder="např. Matematika" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="isExcused" class="form-label fw-bold">Typ absence</label>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" name="isExcused" id="isExcused">
+                                    <label class="form-check-label" for="isExcused">
+                                        Omluvená absence
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="reason" class="form-label fw-bold">Důvod absence</label>
+                            <textarea name="reason" id="reason" class="form-control form-control-lg" 
+                                      rows="3" placeholder="Např. Nemoc, lékař, rodina..."></textarea>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-check-circle"></i> Uložit absenci
+                            </button>
+                            <a href="@Url.Action("ManageAbsences", new { classId })" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-x-circle"></i> Zrušit
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Nastav dnešní datum jako výchozí
+    document.getElementById('absenceDate').valueAsDate = new Date();
+</script>

@@ -1,0 +1,138 @@
+@model List<Skolni_portal.Data.Absence>
+@{
+    ViewData["Title"] = "Moje absence";
+    var totalAbsences = ViewData["TotalAbsences"] as int?;
+    var excusedAbsences = ViewData["ExcusedAbsences"] as int?;
+    var unexcusedAbsences = ViewData["UnexcusedAbsences"] as int?;
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold mb-1">Moje absence</h2>
+            <p class="text-muted">Přehled vašich absencí ze všech předmětů</p>
+        </div>
+    </div>
+
+    <!-- Statistika -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5 class="text-danger">@(totalAbsences ?? 0)</h5>
+                    <p class="text-muted mb-0">Celkem absencí</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5 class="text-success">@(excusedAbsences ?? 0)</h5>
+                    <p class="text-muted mb-0">Omluvenek</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5 class="text-warning">@(unexcusedAbsences ?? 0)</h5>
+                    <p class="text-muted mb-0">Neomluvených</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    @if (totalAbsences > 0)
+                    {
+                        var percentage = ((decimal?)(excusedAbsences ?? 0) / (totalAbsences ?? 1) * 100);
+                        <h5>@Math.Round(percentage ?? 0, 0)%</h5>
+                    }
+                    else
+                    {
+                        <h5>-</h5>
+                    }
+                    <p class="text-muted mb-0">Podíl omluvenek</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabulka absencí -->
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-success">
+            <i class="bi bi-check-circle"></i> Skvěle! Nemáte žádné absence. 🎉
+        </div>
+    }
+    else
+    {
+        <div class="card shadow">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Datum</th>
+                            <th>Třída</th>
+                            <th>Předmět</th>
+                            <th>Typ</th>
+                            <th>Důvod</th>
+                            <th>Zaznamenal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var absence in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@absence.AbsenceDate.ToString("dd.MM.yyyy")</strong>
+                                </td>
+                                <td>
+                                    @absence.Class?.Name
+                                </td>
+                                <td>
+                                    @absence.Subject
+                                </td>
+                                <td>
+                                    @if (absence.IsExcused)
+                                    {
+                                        <span class="badge bg-success">✓ Omluvená</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">✗ Neomluvená</span>
+                                    }
+                                </td>
+                                <td>
+                                    <small class="text-muted">@absence.Reason</small>
+                                </td>
+                                <td>
+                                    <small class="text-muted">@absence.RecordedByUser?.UserName</small>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Zpět na panel
+        </a>
+    </div>
+</div>
+
+<style>
+    .table tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+</style>

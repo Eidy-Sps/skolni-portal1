@@ -13,6 +13,9 @@ namespace Skolni_portal.Data
         public DbSet<TeacherCode> TeacherCodes { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<SchoolClass> SchoolClasses { get; set; }
+        public DbSet<StudentClass> StudentClasses { get; set; }
+        public DbSet<Absence> Absences { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,6 +45,45 @@ namespace Skolni_portal.Data
                 .WithMany()
                 .HasForeignKey(s => s.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Konfiguracia StudentClass (Many-to-Many)
+            modelBuilder.Entity<StudentClass>()
+                .HasOne(sc => sc.Student)
+                .WithMany()
+                .HasForeignKey(sc => sc.StudentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<StudentClass>()
+                .HasOne(sc => sc.Class)
+                .WithMany(c => c.Students)
+                .HasForeignKey(sc => sc.ClassId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Konfiguracia Absence relationships
+            modelBuilder.Entity<Absence>()
+                .HasOne(a => a.Student)
+                .WithMany()
+                .HasForeignKey(a => a.StudentId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Absence>()
+                .HasOne(a => a.Class)
+                .WithMany(c => c.Absences)
+                .HasForeignKey(a => a.ClassId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Absence>()
+                .HasOne(a => a.RecordedByUser)
+                .WithMany()
+                .HasForeignKey(a => a.RecordedByUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Konfiguracia SchoolClass relationships
+            modelBuilder.Entity<SchoolClass>()
+                .HasOne(c => c.Teacher)
+                .WithMany()
+                .HasForeignKey(c => c.TeacherId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

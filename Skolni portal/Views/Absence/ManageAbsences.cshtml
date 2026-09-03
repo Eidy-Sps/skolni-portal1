@@ -1,0 +1,100 @@
+@model List<Skolni_portal.Data.Absence>
+@{
+    ViewData["Title"] = "Správa absencí";
+    var schoolClass = ViewData["Class"] as Skolni_portal.Data.SchoolClass;
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">Absence - Třída @schoolClass?.Name</h2>
+                    <p class="text-muted">Správa a přehled absencí žáků</p>
+                </div>
+                <a href="@Url.Action("AddAbsence", new { classId = schoolClass?.Id })" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Přidat absenci
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> Zatím žádné absence. 
+            <a href="@Url.Action("AddAbsence", new { classId = schoolClass?.Id })">Přidat první absenci</a>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Datum</th>
+                            <th>Žák</th>
+                            <th>Předmět</th>
+                            <th>Typ</th>
+                            <th>Důvod</th>
+                            <th>Zaznamenal</th>
+                            <th>Akce</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var absence in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@absence.AbsenceDate.ToString("dd.MM.yyyy")</strong>
+                                </td>
+                                <td>
+                                    @absence.Student?.Email
+                                </td>
+                                <td>
+                                    @absence.Subject
+                                </td>
+                                <td>
+                                    @if (absence.IsExcused)
+                                    {
+                                        <span class="badge bg-success">Omluvená</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Neomluvená</span>
+                                    }
+                                </td>
+                                <td>
+                                    <small class="text-muted">@absence.Reason</small>
+                                </td>
+                                <td>
+                                    <small class="text-muted">@absence.RecordedByUser?.Email</small>
+                                </td>
+                                <td>
+                                    <form method="post" asp-action="DeleteAbsence" asp-route-absenceId="@absence.Id" asp-route-classId="@schoolClass?.Id" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Smazat absenci?')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Zpět na panel
+        </a>
+    </div>
+</div>
+
+<style>
+    .table tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+</style>
